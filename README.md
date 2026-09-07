@@ -23,3 +23,7 @@ The application will follow a full-stack architecture consisting of:
 2. **Backend/API Layer** — Handles business logic and communication between the frontend and database.
 3. **Database Layer** — Stores cleaned and categorized transaction data in a relational database.
 4. **Frontend Layer** — Allows users to analyze and visualize the processed data.
+
+## Architecture Diagram Link: https://miro.com/app/board/uXjVHqP0yrA=/?share_link_id=567406203993
+
+## Scrum Board Link: https://trello.com/invite/b/6a9e51d0c8b79abb9265b86b/ATTI6df338577c46f74845a65717183d8ab5D48AE8D8/ewdteam4c1continuousformativeassessmentmomosmsanalyze
