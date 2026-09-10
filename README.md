@@ -27,3 +27,56 @@ The application will follow a full-stack architecture consisting of:
 ### Architecture Diagram Link: https://miro.com/app/board/uXjVHqP0yrA=/?share_link_id=567406203993
 
 ### Scrum Board Link: https://trello.com/invite/b/6a9e51d0c8b79abb9265b86b/ATTI6df338577c46f74845a65717183d8ab5D48AE8D8/ewdteam4c1continuousformativeassessmentmomosmsanalyze
+
+## Project Structure
+
+```text
+
+│
+├── README.md
+├── .env.example
+├── requirements.txt
+├── index.html
+│
+├── web/
+│   ├── styles.css
+│   ├── chart_handler.js
+│   └── assets/
+│
+├── data/
+│   ├── raw/
+│   │   └── momo.xml
+│   ├── processed/
+│   │   └── dashboard.json
+│   ├── db.sqlite3
+│   └── logs/
+│       ├── etl.log
+│       └── dead_letter/
+│
+├── etl/
+│   ├── __init__.py
+│   ├── config.py
+│   ├── parse_xml.py
+│   ├── clean_normalize.py
+│   ├── categorize.py
+│   ├── load_db.py
+│   └── run.py
+│
+├── api/
+│   ├── __init__.py
+│   ├── app.py
+│   ├── db.py
+│   └── schemas.py
+│
+├── scripts/
+│   ├── run_etl.sh
+│   ├── export_json.sh
+│   └── serve_frontend.sh
+│
+└── tests/
+    ├── test_parse_xml.py
+    ├── test_clean_normalize.py
+    └── test_categorize.py
+```
+project structure is
+tegorize.py
