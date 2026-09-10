@@ -78,5 +78,4 @@ The application will follow a full-stack architecture consisting of:
     ├── test_clean_normalize.py
     └── test_categorize.py
 ```
-project structure is
-tegorize.py
+
