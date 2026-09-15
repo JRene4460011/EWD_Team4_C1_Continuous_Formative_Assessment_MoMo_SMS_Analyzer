@@ -20,7 +20,7 @@
     {"user_id": 5, "name": "David Nwza", "phone_number": "+271713456789", "customer_type": "Individual", "created_at": "2026-09-15T22:57:14Z"}
   ],
 
-  // Transaction classification categories
+  
   "transaction_categories": [
     {"category_id": 1, "category_name": "Cash Transfer", "description": "Direct money transfer between individual users"},
     {"category_id": 2, "category_name": "Merchant Payment", "description": "Payments made directly to business tills or merchant accounts"},
@@ -29,7 +29,7 @@
     {"category_id": 5, "category_name": "Bill Payment", "description": "Utility and formal service subscription payments"}
   ],
 
-  // Transaction logs and lifecycle records
+ 
   "transactions": [
     {"transaction_id": 1, "sender_user_id": 1, "recipient_user_id": 4, "category_id": 1, "amount": 1500.00, "fee": 15.00, "transaction_datetime": "2026-06-01 10:30:00", "balance_after": 8500.00, "status": "Completed"},
     {"transaction_id": 2, "sender_user_id": 2, "recipient_user_id": 5, "category_id": 2, "amount": 12500.00, "fee": 0.00, "transaction_datetime": "2026-06-01 11:15:00", "balance_after": 45000.00, "status": "Completed"},
