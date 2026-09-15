@@ -28,7 +28,6 @@ CREATE TABLE IF NOT EXISTS Transactions (
     Transaction_datetime DATETIME NOT NULL,
     Balance_after DECIMAL(10, 2) NOT NULL,
     Status ENUM('Pending', 'Completed', 'Failed') NOT NULL,
-    External_transaction_id VARCHAR(255),
     FOREIGN KEY (Sender_user_id) REFERENCES Users(User_id),
     FOREIGN KEY (Recipient_user_id) REFERENCES Users(User_id),
     FOREIGN KEY (Category_id) REFERENCES TransactionCategories(Category_id)
@@ -47,6 +46,8 @@ CREATE TABLE IF NOT EXISTS Transactions (
 
 
 ---SQL codes for inserting a transaction into the Transactions table
+INSERT INTO Transactions (Sender_user_id, Recipient_user_id, Category_id, Amount, fee, Transaction_datetime, Balance_after, Status)
+VALUES (1, 2, 1, 100.00, 2.50, NOW(), 97.50, 'Completed');
 
 
 ---SQL codes for inserting a system log into the SystemLogs table
