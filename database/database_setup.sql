@@ -61,7 +61,7 @@ INSERT INTO Users (Name, Phone_number, Customer_type) VALUES
 
 # Inserting sample data into TransactionCategories table
 INSERT INTO TransactionCategories (Category_Name, Description) VALUES
-('Peer-to-Peer', 'Direct money transfer between individual users'),
+('Cash Transfer', 'Direct money transfer between individual users'),
 ('Merchant Payment', 'Payments made directly to business tills or merchant accounts'),
 ('Cash Withdrawal', 'Agent-assisted cash out transactions'),
 ('Airtime Purchase', 'Direct top-up for mobile airtime and data bundles'),
@@ -77,8 +77,8 @@ INSERT INTO Transactions (Sender_user_id, Recipient_user_id, Category_id, Amount
 
 # Inserting sample data into SystemLogs table
 INSERT INTO SystemLogs (Transaction_id, Log_datetime, Message_type, Source, Message, Service_center, Read_status, Status, Locked, Date_sent) VALUES
-(1, '2026-06-01 10:30:05', 'SMS_RECEIVED', 'Gateway_A', 'Confirmed. Ksh1,500.00 sent to Didier...', 'Nairobi Hub', 'Read', 'Success', FALSE, '2026-06-01 10:30:00'),
-(2, '2026-06-01 11:15:02', 'SMS_RECEIVED', 'Gateway_B', 'Confirmed. Ksh12,500 paid to Joshua Mulongo...', 'Mombasa Hub', 'Unread', 'Success', FALSE, '2026-06-01 11:15:00'),
-(3, '2026-06-01 09:00:10', 'SMS_RECEIVED', 'Gateway_A', 'Withdrawal of Ksh5,000 at Agent Josue Rene...', 'Kigali Hub', 'Read', 'Success', FALSE, '2026-06-01 09:00:00'),
-(4, '2026-06-02 14:20:03', 'SMS_RECEIVED', 'Gateway_C', 'You have bought Ksh200 airtime...', 'Kigali Hub', 'Unread', 'Success', FALSE, '2026-06-02 14:20:00'),
-(5, '2026-06-03 16:45:08', 'SMS_RECEIVED', 'Gateway_B', 'Bill payment of Ksh3,400 processing...', 'Kampala Hub', 'Unread', 'Processing', TRUE, '2026-06-03 16:45:00');
+(1, '2026-06-01 10:30:05', 'SMS_RECEIVED', 'Gateway_A', 'Confirmed. RWF1,500.00 sent to Didier...', 'Nairobi Hub', 'Read', 'Success', FALSE, '2026-06-01 10:30:00'),
+(2, '2026-06-01 11:15:02', 'SMS_RECEIVED', 'Gateway_B', 'Confirmed. RWF12,500 paid to Joshua Mulongo...', 'Mombasa Hub', 'Unread', 'Success', FALSE, '2026-06-01 11:15:00'),
+(3, '2026-06-01 09:00:10', 'SMS_RECEIVED', 'Gateway_A', 'Withdrawal of RWF5,000 at Agent Josue Rene...', 'Kigali Hub', 'Read', 'Success', FALSE, '2026-06-01 09:00:00'),
+(4, '2026-06-02 14:20:03', 'SMS_RECEIVED', 'Gateway_C', 'You have bought RWF200 airtime...', 'Kigali Hub', 'Unread', 'Success', FALSE, '2026-06-02 14:20:00'),
+(5, '2026-06-03 16:45:08', 'SMS_RECEIVED', 'Gateway_B', 'Bill payment of RWF3,400 processing...', 'Kampala Hub', 'Unread', 'Processing', TRUE, '2026-06-03 16:45:00');
