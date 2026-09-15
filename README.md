@@ -1,5 +1,5 @@
 # Team Name: The Conquerors
-# Team Members: Leon Njoroge, Muse Eid, Josue Rene Nsengiyumva
+# Team Members: Leon Njoroge, Muse Eid, Josue Rene Nsengiyumva, Didier, Joshua Mulongo
 
 # Project Name: MoMo SMS Analyzer
 
