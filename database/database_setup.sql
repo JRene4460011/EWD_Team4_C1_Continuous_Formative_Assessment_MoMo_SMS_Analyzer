@@ -1,8 +1,20 @@
 -- SQL Codes for the Users Table
+CREATE TABLE Users (
+    User_id INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Phone_number VARCHAR(20) NOT NULL UNIQUE,
+    Customer_type VARCHAR(30) NOT NULL,
+    Created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
 
+    CONSTRAINT chk_customer_type
+        CHECK (Customer_type IN ('Individual', 'Business', 'Agent'))
 
 -- SQL Codes for the TransactionCategories Table
-
+CREATE TABLE TransactionCategories (
+    Category_ID INT AUTO_INCREMENT PRIMARY KEY,
+    Category_Name VARCHAR(50) NOT NULL UNIQUE,
+    Description VARCHAR(255)
+);
 
 -- SQL Codes for the Transactions Table
 CREATE TABLE IF NOT EXISTS Transactions (
@@ -23,18 +35,3 @@ CREATE TABLE IF NOT EXISTS Transactions (
 
 
 -- SQL Codes for the SystemLogs Table
-
-CREATE TABLE IF NOT EXISTS SystemLogs (
-    Log_id INT PRIMARY KEY AUTO_INCREMENT,
-    Transaction_id INT NOT NULL,
-    Log_datetime DATETIME NOT NULL,
-    Message_type VARCHAR(50) NOT NULL,
-    Source VARCHAR(100),
-    Message TEXT,
-    Service_center VARCHAR(100),
-    Read_status ENUM('Read', 'Unread') NOT NULL DEFAULT 'Unread',
-    Status VARCHAR(50),
-    Locked BOOLEAN NOT NULL DEFAULT FALSE,
-    Date_sent DATETIME,
-    FOREIGN KEY (Transaction_id) REFERENCES Transactions(Transaction_id)
-);
