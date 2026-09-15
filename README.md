@@ -27,9 +27,9 @@ The system will:
 
 | Resource | Link |
 |---|---|
-|  Task Sheet / Assignment Instructions | **Add task sheet link here** |
+|  Task Sheet / Assignment Instructions | **(https://docs.google.com/spreadsheets/d/1FEtbr-OIVN7AzKFJV_M4lCoeNIGhVSA_8NuFQvvO9X0/edit?gid=0#gid=0)** |
 |  ERD Diagram | **[ ERD link here](https://lucid.app/lucidchart/14d29ad4-65ba-4fcf-be05-ce500a5e9075/edit?docId=14d29ad4-65ba-4fcf-be05-ce500a5e9075&shared=true&page=0_0#)** |
-|  Database Design Document | **Add PDF link here** |
+|  Database Design Document | **(https://docs.google.com/document/d/1nYUTSs9r7u8KCLCKc5Qsr_BQXlR3AOKZnnTKD6Qn39c/edit?tab=t.0)** |
 
 
 ---
@@ -63,27 +63,7 @@ The database component of the MoMo SMS Analyzer stores and manages structured tr
 - **Transaction Categories** — Stores transaction/payment types.
 - **System Logs** — Tracks transaction and system processing activity.
 
-## Entity Relationship Diagram
 
-The ERD represents the entities, attributes, primary keys, foreign keys, and relationships within the database.
-
-**ERD file location:**
-
-```text
-docs/
-
-```
-
-[View ERD Diagram](ADD_ERD_LINK_HERE)
-
-## SQL Database Implementation
-
-The SQL database implementation is stored in:
-
-```text
-database/
-
-```
 
 The SQL script contains:
 
@@ -98,23 +78,54 @@ The SQL script contains:
 
 
 
-## JSON Data Modeling
+## Database to JSON Mapping
 
+### Users Table
 
-The JSON file demonstrates:
+| SQL Column | JSON Field | JSON Type | Description |
+|---|---|---|---|
+| `User_id` | `user_id` | Number | Unique user ID |
+| `Name` | `name` | String | User's name |
+| `Phone_number` | `phone_number` | String | User's phone number, including country code |
+| `Customer_type` | `customer_type` | String | Customer type: Individual, Business, or Agent |
+| `Created_at` | `created_at` | String | User creation date and time in ISO format |
 
-- JSON representations of the main entities
-- Related and nested data
-- Transaction data
-- User information
-- Transaction categories
-- System logs
-- Complete transaction objects
-- SQL-to-JSON mapping
+### TransactionCategories Table
 
-[View JSON Schemas](ADD_JSON_LINK_HERE)
+| SQL Column | JSON Field | JSON Type | Description |
+|---|---|---|---|
+| `Category_ID` | `category_id` | Number | Unique category ID |
+| `Category_Name` | `category_name` | String | Name of the transaction category |
+| `Description` | `description` | String | Description of the transaction category |
+
+### Transactions Table
+
+| SQL Column | JSON Field | JSON Type | Description |
+|---|---|---|---|
+| `Transaction_id` | `transaction_id` | Number | Unique transaction ID |
+| `Sender_user_id` | `sender` | Object | Sender's user information |
+| `Recipient_user_id` | `recipient` | Object | Recipient's user information |
+| `Category_id` | `category` | Object | Transaction category information |
+| `Amount` | `amount` | Number | Transaction amount |
+| `fee` | `fee` | Number | Transaction processing fee |
+| `Balance_after` | `balance_after` | Number | Wallet balance after the transaction |
+| `Status` | `status` | String | Transaction status: Pending, Completed, or Failed |
+
+### SystemLogs Table
+
+| SQL Column | JSON Field | JSON Type | Description |
+|---|---|---|---|
+| `Log_id` | `log_id` | Number | Unique log ID |
+| `Transaction_id` | `system_logs` | Array | SMS logs linked to the transaction |
+| `Log_datetime` | `log_datetime` | String | Date and time when the SMS was captured |
+| `Message_type` | `message_type` | String | Type of SMS event, e.g. `SMS_RECEIVED` |
+| `Source` | `source` | String | Gateway that handled the SMS |
+| `Message` | `message` | String | Raw SMS message |
+| `Locked` | `locked` | Boolean | Whether the log is locked |
 
 ---
+**(https://docs.google.com/document/d/1nYUTSs9r7u8KCLCKc5Qsr_BQXlR3AOKZnnTKD6Qn39c/edit?tab=t.wud1xv73ze3x
+)** 
 
 # Database Documentation
 
@@ -129,7 +140,7 @@ The Database Design Document contains:
 - Security and accuracy rules
 - Screenshots demonstrating database functionality
 
-(ADD_PDF_LINK_HERE)
+
 
 ---
 
