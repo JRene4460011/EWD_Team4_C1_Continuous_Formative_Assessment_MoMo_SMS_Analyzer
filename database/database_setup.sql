@@ -12,7 +12,7 @@ CREATE TABLE Users (
 
 -- SQL Codes for the TransactionCategories Table
 CREATE TABLE TransactionCategories (
-    Category_ID INT AUTO_INCREMENT PRIMARY KEY,
+    Category_Id INT AUTO_INCREMENT PRIMARY KEY,
     Category_Name VARCHAR(50) NOT NULL UNIQUE,
     Description VARCHAR(255)
 );
