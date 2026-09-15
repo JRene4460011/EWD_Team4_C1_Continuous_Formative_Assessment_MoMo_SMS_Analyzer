@@ -37,7 +37,21 @@ CREATE TABLE IF NOT EXISTS Transactions (
 
 -- SQL Codes for the SystemLogs Table
 
-
+-- SQL Codes for the SystemLogs Table
+CREATE TABLE IF NOT EXISTS SystemLogs (
+    Log_id INT PRIMARY KEY AUTO_INCREMENT,
+    Transaction_id INT NOT NULL,
+    Log_datetime DATETIME NOT NULL,
+    Message_type VARCHAR(50) NOT NULL,
+    Source VARCHAR(100),
+    Message TEXT,
+    Service_center VARCHAR(100),
+    Read_status ENUM('Read', 'Unread') NOT NULL DEFAULT 'Unread',
+    Status VARCHAR(50),
+    Locked BOOLEAN NOT NULL DEFAULT FALSE,
+    Date_sent DATETIME,
+    FOREIGN KEY (Transaction_id) REFERENCES Transactions(Transaction_id)
+);
 
 
 ---SQL codes for inserting a user into the Users table
