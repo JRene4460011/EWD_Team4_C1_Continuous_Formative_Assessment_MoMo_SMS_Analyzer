@@ -1,0 +1,15 @@
+Transactions (main transaction records)
+Users/Customers (sender/receiver information)
+Transaction_Categories (payment types, transfer types, etc.)
+System_Logs (for tracking data processing)
+
+
+ENTITIES AND ATTRIBUTES
+
+- Transaction Entity:
+
+-Users/Customers Entity:
+
+-Transaction_Categories Entity:
+
+- System_Logs Entity: 
