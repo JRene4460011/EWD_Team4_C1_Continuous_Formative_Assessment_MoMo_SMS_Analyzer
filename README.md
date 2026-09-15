@@ -45,7 +45,7 @@ The application will follow a full-stack architecture consisting of:
 4. **Frontend Layer** — Allows users to analyze and visualize transaction data.
 
 ### Architecture Diagram
-Architecture Diagram Link: https://miro.com/app/board/uXjVHqP0yrA=/?share_link_id=567406203993
+(https://lucid.app/lucidchart/14d29ad4-65ba-4fcf-be05-ce500a5e9075/edit?docId=14d29ad4-65ba-4fcf-be05-ce500a5e9075&shared=true&page=0_0#)
 
 ### Scrum Board
 
