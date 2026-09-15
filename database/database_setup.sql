@@ -33,9 +33,6 @@ CREATE TABLE IF NOT EXISTS Transactions (
     FOREIGN KEY (Category_id) REFERENCES TransactionCategories(Category_id)
 );
 
-
--- SQL Codes for the SystemLogs Table
-
 -- SQL Codes for the SystemLogs Table
 CREATE TABLE IF NOT EXISTS SystemLogs (
     Log_id INT PRIMARY KEY AUTO_INCREMENT,
