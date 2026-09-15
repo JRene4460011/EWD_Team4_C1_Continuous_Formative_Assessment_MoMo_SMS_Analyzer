@@ -11,7 +11,6 @@
     ]
   },
 
- 
   "users": [
     {"user_id": 1, "name": "Muse Eid", "phone_number": "252636529997", "customer_type": "Business", "created_at": "2026-09-15T22:57:14Z"},
     {"user_id": 2, "name": "Josue Rene Nsengiyumva", "phone_number": "250795013860", "customer_type": "Agent", "created_at": "2026-09-15T22:57:14Z"},
@@ -20,7 +19,7 @@
     {"user_id": 5, "name": "David Nwza", "phone_number": "+271713456789", "customer_type": "Individual", "created_at": "2026-09-15T22:57:14Z"}
   ],
 
-  
+  "_note_categories": "Transaction classification categories",
   "transaction_categories": [
     {"category_id": 1, "category_name": "Cash Transfer", "description": "Direct money transfer between individual users"},
     {"category_id": 2, "category_name": "Merchant Payment", "description": "Payments made directly to business tills or merchant accounts"},
@@ -29,7 +28,7 @@
     {"category_id": 5, "category_name": "Bill Payment", "description": "Utility and formal service subscription payments"}
   ],
 
- 
+  "_note_transactions": "Transaction logs and lifecycle records",
   "transactions": [
     {"transaction_id": 1, "sender_user_id": 1, "recipient_user_id": 4, "category_id": 1, "amount": 1500.00, "fee": 15.00, "transaction_datetime": "2026-06-01 10:30:00", "balance_after": 8500.00, "status": "Completed"},
     {"transaction_id": 2, "sender_user_id": 2, "recipient_user_id": 5, "category_id": 2, "amount": 12500.00, "fee": 0.00, "transaction_datetime": "2026-06-01 11:15:00", "balance_after": 45000.00, "status": "Completed"},
@@ -38,7 +37,6 @@
     {"transaction_id": 5, "sender_user_id": 5, "recipient_user_id": 2, "category_id": 5, "amount": 3400.00, "fee": 10.00, "transaction_datetime": "2026-06-03 16:45:00", "balance_after": 41600.00, "status": "Pending"}
   ],
 
- 
   "system_logs": [
     {"log_id": 1, "transaction_id": 1, "log_datetime": "2026-06-01 10:30:05", "message_type": "SMS_RECEIVED", "source": "Gateway_A", "message": "Confirmed. RWF1,500.00 sent to Didier...", "service_center": "Nairobi Hub", "read_status": "Read", "status": "Success", "locked": false, "date_sent": "2026-06-01 10:30:00"},
     {"log_id": 2, "transaction_id": 2, "log_datetime": "2026-06-01 11:15:02", "message_type": "SMS_RECEIVED", "source": "Gateway_B", "message": "Confirmed. RWF12,500 paid to Joshua Mulongo...", "service_center": "Mombasa Hub", "read_status": "Unread", "status": "Success", "locked": false, "date_sent": "2026-06-01 11:15:00"},
@@ -46,7 +44,6 @@
     {"log_id": 4, "transaction_id": 4, "log_datetime": "2026-06-02 14:20:03", "message_type": "SMS_RECEIVED", "source": "Gateway_C", "message": "You have bought RWF200 airtime...", "service_center": "Kigali Hub", "read_status": "Unread", "status": "Success", "locked": false, "date_sent": "2026-06-02 14:20:00"},
     {"log_id": 5, "transaction_id": 5, "log_datetime": "2026-06-03 16:45:08", "message_type": "SMS_RECEIVED", "source": "Gateway_B", "message": "Bill payment of RWF3,400 processing...", "service_center": "Kampala Hub", "read_status": "Unread", "status": "Processing", "locked": true, "date_sent": "2026-06-03 16:45:00"}
   ],
-
 
   "api_response_complete_transaction": {
     "transaction_id": 1,
@@ -61,5 +58,79 @@
     "system_logs": [
       {"log_id": 1, "log_datetime": "2026-06-01 10:30:05", "message_type": "SMS_RECEIVED", "source": "Gateway_A", "message": "Confirmed. RWF1,500.00 sent to Didier...", "service_center": "Nairobi Hub", "read_status": "Read", "status": "Success", "locked": false, "date_sent": "2026-06-01 10:30:00"}
     ]
+  },
+
+  "sql_to_json_mapping": {
+    "users": "Maps directly to the JSON 'users' array, one object per row (user_id, name, phone_number, customer_type, created_at)",
+    "transaction_categories": "Maps directly to the JSON 'transaction_categories' array (category_id, category_name, description)",
+    "transactions": "Maps to the 'transactions' array for raw records; in API responses (see api_response_complete_transaction) sender_user_id and recipient_user_id are expanded into nested 'sender' and 'recipient' objects instead of exposing raw foreign key IDs",
+    "system_logs": "Maps to the 'system_logs' array for raw records; in a single-transaction API response, logs are filtered by transaction_id and nested as a 'system_logs' array inside that transaction object"
   }
-}
+}{
+
+  "metadata": {
+    "project_name": "MoMo SMS Analyzer",
+    "description": "JSON document model mapping the schema in /database with sample records.",
+    "team_members": [
+      "Muse Eid",
+      "Josue Rene Nsengiyumva",
+      "Didier Abizera",
+      "Joshua Gunnogere Mulongo"
+    ]
+  },
+
+  "users": [
+    {"user_id": 1, "name": "Muse Eid", "phone_number": "252636529997", "customer_type": "Business", "created_at": "2026-09-15T22:57:14Z"},
+    {"user_id": 2, "name": "Josue Rene Nsengiyumva", "phone_number": "250795013860", "customer_type": "Agent", "created_at": "2026-09-15T22:57:14Z"},
+    {"user_id": 3, "name": "Didier Abizera", "phone_number": "250790156404", "customer_type": "Individual", "created_at": "2026-09-15T22:57:14Z"},
+    {"user_id": 4, "name": "Joshua Gunnogere Mulongo", "phone_number": "+256778406494", "customer_type": "Business", "created_at": "2026-09-15T22:57:14Z"},
+    {"user_id": 5, "name": "David Nwza", "phone_number": "+271713456789", "customer_type": "Individual", "created_at": "2026-09-15T22:57:14Z"}
+  ],
+
+  "_note_categories": "Transaction classification categories",
+  "transaction_categories": [
+    {"category_id": 1, "category_name": "Cash Transfer", "description": "Direct money transfer between individual users"},
+    {"category_id": 2, "category_name": "Merchant Payment", "description": "Payments made directly to business tills or merchant accounts"},
+    {"category_id": 3, "category_name": "Cash Withdrawal", "description": "Agent-assisted cash out transactions"},
+    {"category_id": 4, "category_name": "Airtime Purchase", "description": "Direct top-up for mobile airtime and data bundles"},
+    {"category_id": 5, "category_name": "Bill Payment", "description": "Utility and formal service subscription payments"}
+  ],
+
+  "_note_transactions": "Transaction logs and lifecycle records",
+  "transactions": [
+    {"transaction_id": 1, "sender_user_id": 1, "recipient_user_id": 4, "category_id": 1, "amount": 1500.00, "fee": 15.00, "transaction_datetime": "2026-06-01 10:30:00", "balance_after": 8500.00, "status": "Completed"},
+    {"transaction_id": 2, "sender_user_id": 2, "recipient_user_id": 5, "category_id": 2, "amount": 12500.00, "fee": 0.00, "transaction_datetime": "2026-06-01 11:15:00", "balance_after": 45000.00, "status": "Completed"},
+    {"transaction_id": 3, "sender_user_id": 1, "recipient_user_id": 3, "category_id": 3, "amount": 5000.00, "fee": 55.00, "transaction_datetime": "2026-06-02 09:00:00", "balance_after": 3500.00, "status": "Completed"},
+    {"transaction_id": 4, "sender_user_id": 4, "recipient_user_id": 1, "category_id": 4, "amount": 200.00, "fee": 0.00, "transaction_datetime": "2026-06-02 14:20:00", "balance_after": 1800.00, "status": "Completed"},
+    {"transaction_id": 5, "sender_user_id": 5, "recipient_user_id": 2, "category_id": 5, "amount": 3400.00, "fee": 10.00, "transaction_datetime": "2026-06-03 16:45:00", "balance_after": 41600.00, "status": "Pending"}
+  ],
+
+  "system_logs": [
+    {"log_id": 1, "transaction_id": 1, "log_datetime": "2026-06-01 10:30:05", "message_type": "SMS_RECEIVED", "source": "Gateway_A", "message": "Confirmed. RWF1,500.00 sent to Didier...", "service_center": "Nairobi Hub", "read_status": "Read", "status": "Success", "locked": false, "date_sent": "2026-06-01 10:30:00"},
+    {"log_id": 2, "transaction_id": 2, "log_datetime": "2026-06-01 11:15:02", "message_type": "SMS_RECEIVED", "source": "Gateway_B", "message": "Confirmed. RWF12,500 paid to Joshua Mulongo...", "service_center": "Mombasa Hub", "read_status": "Unread", "status": "Success", "locked": false, "date_sent": "2026-06-01 11:15:00"},
+    {"log_id": 3, "transaction_id": 3, "log_datetime": "2026-06-01 09:00:10", "message_type": "SMS_RECEIVED", "source": "Gateway_A", "message": "Withdrawal of RWF5,000 at Agent Josue Rene...", "service_center": "Kigali Hub", "read_status": "Read", "status": "Success", "locked": false, "date_sent": "2026-06-01 09:00:00"},
+    {"log_id": 4, "transaction_id": 4, "log_datetime": "2026-06-02 14:20:03", "message_type": "SMS_RECEIVED", "source": "Gateway_C", "message": "You have bought RWF200 airtime...", "service_center": "Kigali Hub", "read_status": "Unread", "status": "Success", "locked": false, "date_sent": "2026-06-02 14:20:00"},
+    {"log_id": 5, "transaction_id": 5, "log_datetime": "2026-06-03 16:45:08", "message_type": "SMS_RECEIVED", "source": "Gateway_B", "message": "Bill payment of RWF3,400 processing...", "service_center": "Kampala Hub", "read_status": "Unread", "status": "Processing", "locked": true, "date_sent": "2026-06-03 16:45:00"}
+  ],
+
+  "api_response_complete_transaction": {
+    "transaction_id": 1,
+    "amount": 1500.00,
+    "fee": 15.00,
+    "transaction_datetime": "2026-06-01 10:30:00",
+    "balance_after": 8500.00,
+    "status": "Completed",
+    "sender": {"user_id": 1, "name": "Muse Eid", "phone_number": "252636529997", "customer_type": "Business"},
+    "recipient": {"user_id": 4, "name": "Joshua Gunnogere Mulongo", "phone_number": "+256778406494", "customer_type": "Business"},
+    "category": {"category_id": 1, "category_name": "Cash Transfer", "description": "Direct money transfer between individual users"},
+    "system_logs": [
+      {"log_id": 1, "log_datetime": "2026-06-01 10:30:05", "message_type": "SMS_RECEIVED", "source": "Gateway_A", "message": "Confirmed. RWF1,500.00 sent to Didier...", "service_center": "Nairobi Hub", "read_status": "Read", "status": "Success", "locked": false, "date_sent": "2026-06-01 10:30:00"}
+    ]
+  },
+
+  "sql_to_json_mapping": {
+    "users": "Maps directly to the JSON 'users' array, one object per row (user_id, name, phone_number, customer_type, created_at)",
+    "transaction_categories": "Maps directly to the JSON 'transaction_categories' array (category_id, category_name, description)",
+    "transactions": "Maps to the 'transactions' array for raw records; in API responses (see api_response_complete_transaction) sender_user_id and recipient_user_id are expanded into nested 'sender' and 'recipient' objects instead of exposing raw foreign key IDs",
+    "system_logs": "Maps to the 'system_logs' array for raw records; in a single-transaction API response, logs are filtered by transaction_id and nested as a 'system_logs' array inside that transaction object"
+  }
