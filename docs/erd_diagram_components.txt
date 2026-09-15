@@ -6,10 +6,42 @@ System_Logs (for tracking data processing)
 
 ENTITIES AND ATTRIBUTES
 
-- Transaction Entity:
+-Transaction Entity:
+
+    Transaction_ID (PK)
+    Sender_User_ID (FK → the User_ID from a user in Users who sent money)
+    Recipient_User_ID (FK → the User_ID from a user in Users who received money)
+    Category_ID (FK → Transaction_Categories.Category_ID)
+    Amount
+    Fee
+    Transaction_DateTime
+    Balance_After
+    Status
+    External_Transaction_ID
 
 -Users/Customers Entity:
+    
+    User_ID (PK)
+    Name
+    Phone_Number
+    Customer_Type
 
 -Transaction_Categories Entity:
+    
+    Category_ID (PK)
+    Category_Name
+    Description
 
-- System_Logs Entity: 
+-System_Logs Entity: 
+
+    Log_ID (PK)
+    Transaction_ID (FK → Transactions.Transaction_ID)
+    Log_DateTime
+    Message_Type
+    Source
+    Message
+    Service_Center
+    Read_Status
+    Status
+    Locked
+    Date_Sent
