@@ -27,7 +27,7 @@ The system will:
 
 | Resource | Link |
 |---|---|
-|  Task Sheet / Assignment Instructions | **(https://docs.google.com/spreadsheets/d/1FEtbr-OIVN7AzKFJV_M4lCoeNIGhVSA_8NuFQvvO9X0/edit?gid=0#gid=0)** |
+|  Task Sheet  | **(https://docs.google.com/spreadsheets/d/1FEtbr-OIVN7AzKFJV_M4lCoeNIGhVSA_8NuFQvvO9X0/edit?gid=0#gid=0)** |
 |  ERD Diagram | **[ ERD link here](https://lucid.app/lucidchart/14d29ad4-65ba-4fcf-be05-ce500a5e9075/edit?docId=14d29ad4-65ba-4fcf-be05-ce500a5e9075&shared=true&page=0_0#)** |
 |  Database Design Document | **(https://docs.google.com/document/d/1nYUTSs9r7u8KCLCKc5Qsr_BQXlR3AOKZnnTKD6Qn39c/edit?tab=t.0)** |
 
