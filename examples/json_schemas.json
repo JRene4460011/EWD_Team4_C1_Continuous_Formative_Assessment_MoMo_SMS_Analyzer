@@ -1,5 +1,5 @@
 {
-  // Project metadata tracked by the MoMo SMS Analyzer team
+
   "metadata": {
     "project_name": "MoMo SMS Analyzer",
     "description": "JSON document model mapping the schema in /database with sample records.",
@@ -11,7 +11,7 @@
     ]
   },
 
-  // Core users table records (Individuals, Businesses, and Agents)
+ 
   "users": [
     {"user_id": 1, "name": "Muse Eid", "phone_number": "252636529997", "customer_type": "Business", "created_at": "2026-09-15T22:57:14Z"},
     {"user_id": 2, "name": "Josue Rene Nsengiyumva", "phone_number": "250795013860", "customer_type": "Agent", "created_at": "2026-09-15T22:57:14Z"},
@@ -38,7 +38,7 @@
     {"transaction_id": 5, "sender_user_id": 5, "recipient_user_id": 2, "category_id": 5, "amount": 3400.00, "fee": 10.00, "transaction_datetime": "2026-06-03 16:45:00", "balance_after": 41600.00, "status": "Pending"}
   ],
 
-  // System audit logs linked to transactions
+ 
   "system_logs": [
     {"log_id": 1, "transaction_id": 1, "log_datetime": "2026-06-01 10:30:05", "message_type": "SMS_RECEIVED", "source": "Gateway_A", "message": "Confirmed. RWF1,500.00 sent to Didier...", "service_center": "Nairobi Hub", "read_status": "Read", "status": "Success", "locked": false, "date_sent": "2026-06-01 10:30:00"},
     {"log_id": 2, "transaction_id": 2, "log_datetime": "2026-06-01 11:15:02", "message_type": "SMS_RECEIVED", "source": "Gateway_B", "message": "Confirmed. RWF12,500 paid to Joshua Mulongo...", "service_center": "Mombasa Hub", "read_status": "Unread", "status": "Success", "locked": false, "date_sent": "2026-06-01 11:15:00"},
@@ -47,7 +47,7 @@
     {"log_id": 5, "transaction_id": 5, "log_datetime": "2026-06-03 16:45:08", "message_type": "SMS_RECEIVED", "source": "Gateway_B", "message": "Bill payment of RWF3,400 processing...", "service_center": "Kampala Hub", "read_status": "Unread", "status": "Processing", "locked": true, "date_sent": "2026-06-03 16:45:00"}
   ],
 
-  // Complex nested API response payload for a single transaction view
+
   "api_response_complete_transaction": {
     "transaction_id": 1,
     "amount": 1500.00,
