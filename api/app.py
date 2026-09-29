@@ -3,6 +3,7 @@ import json
 import base64
 from pathlib import Path
 from api.auth import check_auth
+from dsa.linear_search import linear_search
 
 # Load SMS transactions
 
@@ -71,7 +72,7 @@ class TransactionAPI(BaseHTTPRequestHandler):
                 self.wfile.write(response)
                 return
 
-            transaction = transaction_dictionary.get(str(transaction_id))
+            transaction = linear_search(transactions, transaction_id)
 
             if transaction is None:
                 response = json.dumps({
