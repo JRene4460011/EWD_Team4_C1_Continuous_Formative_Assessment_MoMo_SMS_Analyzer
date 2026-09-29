@@ -1,5 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
+import base64
 from pathlib import Path
 from api.auth import check_auth
 
@@ -11,7 +12,7 @@ DATA_FILE = BASE_DIR / "dsa" / "sms_records.json"
 with open(DATA_FILE, "r", encoding="utf-8") as file:
     transactions = json.load(file)
 
-# Give every transaction an ID
+# Giving every transaction an ID
 for index, transaction in enumerate(transactions, start=1):
     transaction["id"] = index
 
@@ -20,6 +21,7 @@ transaction_dictionary = {
     str(transaction["id"]): transaction
     for transaction in transactions
 }
+
 class TransactionAPI(BaseHTTPRequestHandler):
 
     # GET/transactions
@@ -100,6 +102,15 @@ class TransactionAPI(BaseHTTPRequestHandler):
     # POST/transactions    
     def do_POST(self):
 
+        if not check_auth(self):
+            self.send_response(401)
+            self.send_header(
+                "WWW-Authenticate",
+                'Basic realm="Transaction API"'
+            )
+            self.end_headers()
+            return
+
         if self.path == "/transactions":
 
             # Read the request body
@@ -128,6 +139,9 @@ class TransactionAPI(BaseHTTPRequestHandler):
             # Add the transaction
             transactions.append(new_transaction)
 
+            # Add it to the dictionary
+            transaction_dictionary[str(new_transaction["id"])] = new_transaction    
+
             # Prepare the response
             response = json.dumps(new_transaction).encode("utf-8")
 
@@ -145,6 +159,16 @@ class TransactionAPI(BaseHTTPRequestHandler):
 
     # PUT/transactions/{id}
     def do_PUT(self):
+
+        if not check_auth(self):
+            self.send_response(401)
+            self.send_header(
+                "WWW-Authenticate",
+                'Basic realm="Transaction API"'
+            )
+            self.end_headers()
+            return
+
         if self.path.startswith("/transactions/"):
             transaction_id = int(self.path.split("/")[-1])
             content_length = int(self.headers.get("Content-Length", 0))
