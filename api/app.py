@@ -19,7 +19,13 @@ class TransactionAPI(BaseHTTPRequestHandler):
 
     # GET/transactions 
 
+
+
+
     # GET/transactions/{id}
+
+
+
 
     # POST/transactions    
     def do_POST(self):
@@ -64,9 +70,55 @@ class TransactionAPI(BaseHTTPRequestHandler):
         else:
             self.send_response(404)
             self.end_headers()
-        # PUT/transactions/{id}
 
-        # DELETE/transactions/{id}
+
+
+    # PUT/transactions/{id}
+    def do_PUT(self):
+        if self.path.startswith("/transactions/"):
+                transaction_id = int(self.path.split("/")[-1])
+                content_length = int(self.headers.get("Content-Length", 0))
+                put_data = self.rfile.read(content_length)
+
+                try:
+                    updated_transaction = json.loads(put_data.decode("utf-8"))
+                except json.JSONDecodeError:
+                    response = json.dumps({"error": "Invalid JSON"}).encode("utf-8")
+
+                    self.send_response(400)
+                    self.send_header("Content-Type", "application/json")
+                    self.send_header("Content-Length", str(len(response)))
+                    self.end_headers()
+                    self.wfile.write(response)
+                    return
+
+                for transaction in transactions:
+                    if transaction["id"] == transaction_id:
+                        transaction.update(updated_transaction)
+                        transaction["id"] = transaction_id
+                        response = json.dumps(transaction).encode("utf-8")
+
+                        self.send_response(200)
+                        self.send_header("Content-Type", "application/json")
+                        self.send_header("Content-Length", str(len(response)))
+                        self.end_headers()
+                        self.wfile.write(response)
+                        return
+
+                # If the transaction was not found
+                response = json.dumps({"error": "Transaction not found"}).encode("utf-8")
+
+                self.send_response(404)
+                self.send_header("Content-Type", "application/json")
+                self.send_header("Content-Length", str(len(response)))
+                self.end_headers()
+                self.wfile.write(response)
+
+            else:
+                self.send_response(404)
+                self.end_headers()
+
+    # DELETE/transactions/{id}
 
 
 
@@ -76,3 +128,5 @@ PORT = 8000
 
 server = HTTPServer((HOST, PORT), TransactionAPI)
 print(f"Server running on http://{HOST}:{PORT}")
+
+server.serve_forever()
