@@ -104,12 +104,19 @@ class TransactionAPI(BaseHTTPRequestHandler):
     def do_POST(self):
 
         if not check_auth(self):
+            response = json.dumps({
+                "error": "Authentication required"
+            }).encode("utf-8")
+
             self.send_response(401)
             self.send_header(
                 "WWW-Authenticate",
                 'Basic realm="Transaction API"'
             )
+            self.send_header("Content-Type", "application/json")
+            self.send_header("Content-Length", str(len(response)))
             self.end_headers()
+            self.wfile.write(response)
             return
 
         if self.path == "/transactions":
@@ -162,12 +169,19 @@ class TransactionAPI(BaseHTTPRequestHandler):
     def do_PUT(self):
 
         if not check_auth(self):
+            response = json.dumps({
+                "error": "Authentication required"
+            }).encode("utf-8")
+
             self.send_response(401)
             self.send_header(
                 "WWW-Authenticate",
                 'Basic realm="Transaction API"'
             )
+            self.send_header("Content-Type", "application/json")
+            self.send_header("Content-Length", str(len(response)))
             self.end_headers()
+            self.wfile.write(response)
             return
 
         if self.path.startswith("/transactions/"):
@@ -287,4 +301,5 @@ PORT = 8000
 server = HTTPServer((HOST, PORT), TransactionAPI)
 print(f"Server running on http://{HOST}:{PORT}")
 
-server.serve_forever()
+if __name__ == "__main__":
+    server.serve_forever()
