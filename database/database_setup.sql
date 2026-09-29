@@ -8,11 +8,11 @@ CREATE TABLE Users (
 
     CONSTRAINT chk_customer_type
         CHECK (Customer_type IN ('Individual', 'Business', 'Agent'))
-)
+);
 
 -- SQL Codes for the TransactionCategories Table
 CREATE TABLE TransactionCategories (
-    Category_ID INT AUTO_INCREMENT PRIMARY KEY,
+    Category_Id INT AUTO_INCREMENT PRIMARY KEY,
     Category_Name VARCHAR(50) NOT NULL UNIQUE,
     Description VARCHAR(255)
 );
@@ -33,9 +33,6 @@ CREATE TABLE IF NOT EXISTS Transactions (
     FOREIGN KEY (Category_id) REFERENCES TransactionCategories(Category_id)
 );
 
-
--- SQL Codes for the SystemLogs Table
-
 -- SQL Codes for the SystemLogs Table
 CREATE TABLE IF NOT EXISTS SystemLogs (
     Log_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -52,16 +49,49 @@ CREATE TABLE IF NOT EXISTS SystemLogs (
     FOREIGN KEY (Transaction_id) REFERENCES Transactions(Transaction_id)
 );
 
+####### Sample DML statements to insert test data (at least 5 records per main table)
 
----SQL codes for inserting a user into the Users table
+# Inserting sample data into Users table
+INSERT INTO Users (Name, Phone_number, Customer_type) VALUES 
+('Muse Eid', '252636529997', 'Business'),
+('Josue Rene Nsengiyumva', '250795013860', 'Agent'),
+('Didier Abizera', '250790156404', 'Individual'),
+('Joshua Gunnogere Mulongo', '+256778406494', 'Business'),
+('David Nwza', '+271713456789', 'Individual');
 
+# Inserting sample data into TransactionCategories table
+INSERT INTO TransactionCategories (Category_Name, Description) VALUES
+('Cash Transfer', 'Direct money transfer between individual users'),
+('Merchant Payment', 'Payments made directly to business tills or merchant accounts'),
+('Cash Withdrawal', 'Agent-assisted cash out transactions'),
+('Airtime Purchase', 'Direct top-up for mobile airtime and data bundles'),
+('Bill Payment', 'Utility and formal service subscription payments');
 
----SQL codes for inserting a transaction category into the TransactionCategories table
+# Inserting sample data into Transactions table
+INSERT INTO Transactions (Sender_user_id, Recipient_user_id, Category_id, Amount, fee, Transaction_datetime, Balance_after, Status) VALUES
+(1, 4, 1, 1500.00, 15.00, '2026-06-01 10:30:00', 8500.00, 'Completed'),
+(2, 5, 2, 12500.00, 0.00, '2026-06-01 11:15:00', 45000.00, 'Completed'),
+(1, 3, 3, 5000.00, 55.00, '2026-06-02 09:00:00', 3500.00, 'Completed'),
+(4, 1, 4, 200.00, 0.00, '2026-06-02 14:20:00', 1800.00, 'Completed'),
+(5, 2, 5, 3400.00, 10.00, '2026-06-03 16:45:00', 41600.00, 'Pending');
 
+# Inserting sample data into SystemLogs table
+INSERT INTO SystemLogs (Transaction_id, Log_datetime, Message_type, Source, Message, Service_center, Read_status, Status, Locked, Date_sent) VALUES
+(1, '2026-06-01 10:30:05', 'SMS_RECEIVED', 'Gateway_A', 'Confirmed. RWF1,500.00 sent to Didier...', 'Nairobi Hub', 'Read', 'Success', FALSE, '2026-06-01 10:30:00'),
+(2, '2026-06-01 11:15:02', 'SMS_RECEIVED', 'Gateway_B', 'Confirmed. RWF12,500 paid to Joshua Mulongo...', 'Mombasa Hub', 'Unread', 'Success', FALSE, '2026-06-01 11:15:00'),
+(3, '2026-06-01 09:00:10', 'SMS_RECEIVED', 'Gateway_A', 'Withdrawal of RWF5,000 at Agent Josue Rene...', 'Kigali Hub', 'Read', 'Success', FALSE, '2026-06-01 09:00:00'),
+(4, '2026-06-02 14:20:03', 'SMS_RECEIVED', 'Gateway_C', 'You have bought RWF200 airtime...', 'Kigali Hub', 'Unread', 'Success', FALSE, '2026-06-02 14:20:00'),
+(5, '2026-06-03 16:45:08', 'SMS_RECEIVED', 'Gateway_B', 'Bill payment of RWF3,400 processing...', 'Kampala Hub', 'Unread', 'Processing', TRUE, '2026-06-03 16:45:00');
+-- Indexes for performance optimization
+CREATE INDEX idx_transactions_sender ON Transactions(Sender_user_id);
+CREATE INDEX idx_transactions_recipient ON Transactions(Recipient_user_id);
+CREATE INDEX idx_transactions_category ON Transactions(Category_id);
+CREATE INDEX idx_transactions_datetime ON Transactions(Transaction_datetime);
+CREATE INDEX idx_transactions_status ON Transactions(Status);
+CREATE INDEX idx_systemlogs_transaction ON SystemLogs(Transaction_id);
+CREATE INDEX idx_systemlogs_datetime ON SystemLogs(Log_datetime);
 
----SQL codes for inserting a transaction into the Transactions table
-INSERT INTO Transactions (Sender_user_id, Recipient_user_id, Category_id, Amount, fee, Transaction_datetime, Balance_after, Status)
-VALUES (1, 2, 1, 100.00, 2.50, NOW(), 97.50, 'Completed');
-
-
----SQL codes for inserting a system log into the SystemLogs table
+-- Additional CHECK constraints
+ALTER TABLE Transactions ADD CONSTRAINT chk_amount_positive CHECK (Amount > 0);
+ALTER TABLE Transactions ADD CONSTRAINT chk_fee_non_negative CHECK (fee >= 0);
+ALTER TABLE Transactions ADD CONSTRAINT chk_balance_non_negative CHECK (Balance_after >= 0);
