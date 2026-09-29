@@ -141,6 +141,10 @@ The Database Design Document contains:
 - Security and accuracy rules
 - Screenshots demonstrating database functionality
 
+## Algorithm Reflection
+
+The comparison of dictionary lookup and linear search, including alternative search approaches, is documented in [Reflection on Dictionary Lookup vs Linear Search](docs/reflection_on_dictionary_vs_linear_search.md).
+
 
 
 ---
