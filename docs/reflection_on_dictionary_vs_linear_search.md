@@ -1,34 +1,42 @@
-# Reflection on Dictionary Lookup vs Linear Search
+# Reflection on Dictionary Lookup and Linear Search
 
-## Why dictionary lookup is faster
+## Why is dictionary lookup faster?
 
-The API stores transactions in two forms:
+In this project, transactions are stored in two ways:
 
-- `transactions` is a list of transaction records.
-- `transaction_dictionary` maps each transaction ID to its record.
+- `transactions` stores them in a list.
+- `transaction_dictionary` stores each transaction using its ID as the key.
 
-The `linear_search` function checks list items one at a time until it finds the requested ID. If there are `n` transactions, it may inspect every item, giving it a time complexity of $O(n)$. A transaction near the beginning may be found quickly, but a transaction near the end, or an ID that does not exist, requires a full scan.
+Linear search checks the list from the beginning, one item at a time. If there are many transactions, it may need to check all of them. This gives linear search a time complexity of $O(n)$.
 
-A Python dictionary uses a hash table. The transaction ID is converted into a hash that identifies where the corresponding record should be stored. This allows the dictionary to locate a record directly instead of comparing it with every other record. Dictionary lookup has an average time complexity of $O(1)$, so the lookup time generally remains almost constant as the number of transactions grows.
+A dictionary can find a transaction using its ID directly. This is because Python uses a hash table to store dictionary values. On average, dictionary lookup takes $O(1)$ time, which means it stays fast even when the number of transactions increases.
 
-Dictionary lookup is not guaranteed to be $O(1)$ in every situation. Hash collisions can require additional comparisons, making the worst case $O(n)$. In practice, Python manages its hash table to keep collisions low. The trade-off is that a dictionary uses more memory than a list and requires unique, hashable keys.
+Dictionary lookup can sometimes be slower because of hash collisions, but this is uncommon. Dictionaries also use more memory than lists and need unique keys.
 
-## Application to this project
+## How this applies to our project
 
-The API already creates `transaction_dictionary`, and the DELETE endpoint uses it to find a transaction by ID. The GET-by-ID endpoint currently calls `linear_search(transactions, transaction_id)`, so it does not benefit from the dictionary that has already been prepared. For consistent performance, GET-by-ID could use:
+The API already creates `transaction_dictionary`. The DELETE endpoint uses it to find transactions, but the GET-by-ID endpoint still uses linear search:
+
+```python
+transaction = linear_search(transactions, transaction_id)
+```
+
+The GET endpoint could use the dictionary instead:
 
 ```python
 transaction = transaction_dictionary.get(str(transaction_id))
 ```
 
-This is especially useful when the SMS dataset becomes large or when the endpoint receives many ID-based requests. The dictionary must also be updated whenever a transaction is added, modified, or deleted, which the current POST and DELETE logic already partially handles.
+This would make ID searches faster, especially when the project has many transactions. The dictionary must be kept updated when transactions are added, changed, or deleted.
 
-## Another data structure or algorithm
+## Another possible solution
 
-Binary search is another option when transactions are kept in a list sorted by numeric ID. It repeatedly compares the target ID with the middle item and discards half of the remaining list. Its time complexity is $O(\log n)$, which is much faster than linear search for large datasets. However, the list must remain sorted, and inserting or deleting items may require shifting records. Binary search is therefore most suitable for mostly static data or data that is periodically sorted.
+Binary search could also improve search speed. It works on a list that is sorted by transaction ID. Instead of checking every item, it checks the middle item and removes half of the remaining list each time. Its time complexity is $O(\log n)$, which is faster than linear search.
 
-For this API, a dictionary is the better in-memory structure for direct ID lookups because IDs are unique and requests do not require sorted order. If the project moves to persistent database storage, an indexed database column such as `transaction_id` would be the stronger long-term choice. A B-tree database index also provides approximately $O(\log n)$ lookup while supporting durable storage, filtering, and range queries.
+The disadvantage is that the list must stay sorted. Adding or deleting transactions may also require the list to be rearranged.
+
+For this project, a dictionary is the best choice for quick searches by transaction ID because the IDs are unique. If the project stores the transactions in a database later, adding an index to the transaction ID column would also make searches faster.
 
 ## Conclusion
 
-Linear search is simple and works well for small lists, but its cost grows directly with the number of transactions. Dictionary lookup is faster on average because hashing provides direct access to a record. The current API should use `transaction_dictionary` consistently for ID-based lookups, while a database index would provide an efficient and scalable solution once transactions are stored in the database.
+Linear search is simple and is suitable for a small list. However, its search time increases as more transactions are added. Dictionary lookup is faster for this API because it can find a transaction directly by its ID. Binary search and database indexes are other useful options, depending on how the data is stored.
