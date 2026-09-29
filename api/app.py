@@ -21,11 +21,52 @@ class TransactionAPI(BaseHTTPRequestHandler):
 
     # GET/transactions/{id}
 
-    # POST/transactions
+    # POST/transactions    
+    def do_POST(self):
 
-    # PUT/transactions/{id}
+        if self.path == "/transactions":
 
-    # DELETE/transactions/{id}
+            # Read the request body
+            content_length = int(self.headers.get("Content-Length", 0))
+            post_data = self.rfile.read(content_length)
+
+            # Convert JSON into a Python dictionary
+            try:
+                new_transaction = json.loads(post_data.decode("utf-8"))
+
+            except json.JSONDecodeError:
+                response = json.dumps({
+                    "error": "Invalid JSON"
+                }).encode("utf-8")
+
+                self.send_response(400)
+                self.send_header("Content-Type", "application/json")
+                self.send_header("Content-Length", str(len(response)))
+                self.end_headers()
+                self.wfile.write(response)
+                return
+
+            # Assign a new ID to the transaction
+            new_transaction["id"] = len(transactions) + 1
+
+            # Add the transaction
+            transactions.append(new_transaction)
+
+            # Prepare the response
+            response = json.dumps(new_transaction).encode("utf-8")
+
+            self.send_response(201)
+            self.send_header("Content-Type", "application/json")
+            self.send_header("Content-Length", str(len(response)))
+            self.end_headers()
+            self.wfile.write(response)
+
+        else:
+            self.send_response(404)
+            self.end_headers()
+        # PUT/transactions/{id}
+
+        # DELETE/transactions/{id}
 
 
 
